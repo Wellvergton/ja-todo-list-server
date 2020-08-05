@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const { update } = require("../models/User");
 
 module.exports = {
   async index(req, res) {
@@ -8,11 +7,11 @@ module.exports = {
     const user = await User.findOne({ where: email });
 
     if (!user) {
-      return res.status(401).json({ message: "User not found" });
+      return res.status(401).json({ error: "User not found" });
     }
 
     if (!(await User.checkPassword(password))) {
-      res.status(401).json({ message: "Incorrect password" });
+      res.status(401).json({ error: "Incorrect password" });
     }
 
     res.json(user);
@@ -23,7 +22,7 @@ module.exports = {
     const user = await User.findOne({ where: { email } });
 
     if (user) {
-      return res.status(409).json({ message: "User already exists" });
+      return res.status(409).json({ error: "User already exists" });
     }
 
     const newUser = await User.create({ name, email, password });
@@ -36,7 +35,7 @@ module.exports = {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ error: "User not found" });
     }
 
     await User.update({ name, email, password }, { where: { email } });
@@ -49,7 +48,7 @@ module.exports = {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ error: "User not found" });
     }
 
     await User.destroy({ where: { email } });
