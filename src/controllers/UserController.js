@@ -1,22 +1,6 @@
 const User = require("../models/User");
 
 module.exports = {
-  async index(req, res) {
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ where: email });
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    if (!(await User.checkPassword(password))) {
-      res.status(401).json({ error: "Incorrect password" });
-    }
-
-    res.json(user);
-  },
-
   async store(req, res) {
     const { name, email, password } = req.body;
     const user = await User.findOne({ where: { email } });
