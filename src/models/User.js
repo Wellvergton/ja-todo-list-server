@@ -27,7 +27,7 @@ class User extends Model {
     this.hasMany(models.Todo, { foreignKey: "user_id", as: "todos" });
   }
 
-  static checkPassword(password) {
+  checkPassword(password) {
     return bcrypt.compare(password, this.password_hash);
   }
 }
