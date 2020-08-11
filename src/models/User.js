@@ -18,7 +18,7 @@ class User extends Model {
       {
         sequelize: connection,
         hooks: {
-          beforeCreate: async (user) => {
+          beforeCreate: (user) => {
             user.id = uid.sync(10);
           },
           beforeSave: async (user) => {
