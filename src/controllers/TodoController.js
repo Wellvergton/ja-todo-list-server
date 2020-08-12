@@ -13,7 +13,7 @@ module.exports = {
     });
 
     if (!user) {
-      return res.status(404);
+      return res.sendStatus(404);
     }
 
     user.todos.forEach((todo) => (todo.date = JSON.parse(todo.date)));
@@ -28,7 +28,7 @@ module.exports = {
     const user = User.findByPk(user_id);
 
     if (!user) {
-      return res.status(404);
+      return res.sendStatus(404);
     }
 
     const todo = await Todo.create({
@@ -48,7 +48,7 @@ module.exports = {
     const user = User.findByPk(user_id);
 
     if (!user) {
-      return res.status(404);
+      return res.sendStatus(404);
     }
 
     await Todo.update(
@@ -66,7 +66,7 @@ module.exports = {
     const user = User.findByPk(user_id);
 
     if (!user) {
-      return res.status(404);
+      return res.sendStatus(404);
     }
 
     await Todo.destroy({ where: { id, user_id } });
