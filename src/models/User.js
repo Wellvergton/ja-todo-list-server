@@ -18,10 +18,9 @@ class User extends Model {
       {
         sequelize: connection,
         hooks: {
-          beforeCreate: (user) => {
-            user.id = uid.sync(10);
-          },
           beforeSave: async (user) => {
+            user.id = uid.sync(10);
+
             if (user.password) {
               user.password_hash = await bcrypt.hash(user.password, 8);
             }
