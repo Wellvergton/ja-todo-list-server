@@ -11,7 +11,7 @@ const checkValidSession = require("./middlewares/checkValidSession");
 const app = express();
 const store = new SequelizeStore({
   db: require("./database"),
-  tableName: "sessions",
+  table: "Session",
   checkExpirationInterval: 1000 * 60 * 60,
 });
 
