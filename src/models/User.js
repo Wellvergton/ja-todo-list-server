@@ -32,6 +32,7 @@ class User extends Model {
 
   static associtate(models) {
     this.hasMany(models.Todo, { foreignKey: "user_id", as: "todos" });
+    this.hasOne(models.Session, { foreignKey: "user_id", as: "sessions" });
   }
 
   checkPassword(password) {

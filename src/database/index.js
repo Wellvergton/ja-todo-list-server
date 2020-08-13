@@ -10,6 +10,7 @@ Session.init(connection);
 Todo.init(connection);
 User.init(connection);
 
+Session.assotiate(connection.models);
 Todo.associtate(connection.models);
 User.associtate(connection.models);
 

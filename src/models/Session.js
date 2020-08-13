@@ -8,6 +8,7 @@ class Session extends Model {
           type: DataTypes.STRING,
           primaryKey: true,
         },
+        user_id: DataTypes.STRING,
         expires: DataTypes.DATE,
         data: DataTypes.TEXT,
       },
@@ -15,6 +16,10 @@ class Session extends Model {
         sequelize: connection,
       }
     );
+  }
+
+  static assotiate(models) {
+    this.belongsTo(models.User, { foreignKey: "user_id", as: "owner" });
   }
 }
 
