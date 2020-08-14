@@ -6,8 +6,6 @@ const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const routes = require("./routes");
 
-const checkValidSession = require("./middlewares/checkValidSession");
-
 const app = express();
 const store = new SequelizeStore({
   db: require("./database"),
@@ -29,7 +27,6 @@ app.use(
     },
   })
 );
-app.use(checkValidSession);
 app.use(express.json());
 app.use("/", routes);
 
