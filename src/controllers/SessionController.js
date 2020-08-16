@@ -2,7 +2,7 @@ const Session = require("../models/Session");
 const User = require("../models/User");
 
 module.exports = {
-  async login(req, res, next) {
+  async login(req, res) {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
 
@@ -15,6 +15,7 @@ module.exports = {
     }
 
     const sid = req.session.id;
+    req.session.uid = user.getDataValue("id");
 
     await ((req) => {
       return new Promise((resolve) => {
@@ -29,7 +30,7 @@ module.exports = {
       { where: { sid } }
     );
 
-    next();
+    res.sendStatus(200);
   },
 
   async logout(req, res) {

@@ -3,7 +3,7 @@ const User = require("../models/User");
 
 module.exports = {
   async index(req, res) {
-    const { user_id } = req.params;
+    const user_id = req.session.uid;
 
     const user = await User.findByPk(user_id, {
       include: {
@@ -22,7 +22,7 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { user_id } = req.params;
+    const user_id = req.session.uid;
     const { title, description, date } = req.body;
 
     const user = User.findByPk(user_id);
@@ -42,7 +42,7 @@ module.exports = {
   },
 
   async update(req, res) {
-    const { user_id } = req.params;
+    const user_id = req.session.uid;
     const { id, title, description, date } = req.body;
 
     const user = User.findByPk(user_id);
@@ -60,7 +60,7 @@ module.exports = {
   },
 
   async delete(req, res) {
-    const { user_id } = req.params;
+    const user_id = req.session.uid;
     const { id } = req.body;
 
     const user = User.findByPk(user_id);
