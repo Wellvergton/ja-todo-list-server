@@ -2,6 +2,7 @@ require("dotenv").config();
 require("./database");
 
 const express = require("express");
+const helmet = require("helmet");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const routes = require("./routes");
@@ -13,12 +14,14 @@ const store = new SequelizeStore({
   checkExpirationInterval: 1000 * 60 * 60,
 });
 
+app.use(helmet());
 app.use(
   session({
     secret: [
       process.env.CURRENT_SESSION_SECRET,
       process.env.PAST_SESSION_SECRET,
     ],
+    name: "sessionId",
     store: store,
     resave: false,
     saveUninitialized: false,
