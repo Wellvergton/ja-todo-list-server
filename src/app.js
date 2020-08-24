@@ -2,6 +2,7 @@ require("dotenv").config();
 require("./database");
 
 const express = require("express");
+const cors = require("cors");
 const helmet = require("helmet");
 const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -14,6 +15,7 @@ const store = new SequelizeStore({
   checkExpirationInterval: 1000 * 60 * 60,
 });
 
+app.use(cors({ origin: process.env.CORS_ORIGIN }));
 app.use(helmet());
 app.use(
   session({
