@@ -8,10 +8,9 @@ const checkValidSession = require("./middlewares/checkValidSession");
 routes.post("/login/", SessionController.login);
 routes.post("/logout/", SessionController.logout);
 
-routes.all("/users/", checkValidSession);
 routes.post("/users/", UserController.store);
-routes.put("/users/", UserController.update);
-routes.delete("/users/", UserController.delete);
+routes.put("/users/", checkValidSession, UserController.update);
+routes.delete("/users/", checkValidSession, UserController.delete);
 
 routes.all("/todos/", checkValidSession);
 routes.get("/todos/", TodoController.index);
