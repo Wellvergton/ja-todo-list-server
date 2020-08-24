@@ -15,7 +15,6 @@ module.exports = {
     }
 
     const sid = req.session.id;
-    req.session.uid = user.getDataValue("id");
 
     await ((req) => {
       return new Promise((resolve) => {
@@ -30,11 +29,17 @@ module.exports = {
       { where: { sid } }
     );
 
+    res.cookie("usrid", user.getDataValue("id"), {
+      maxAge: 1000 * 60 * 60 * 24 * 3,
+      httpOnly: false,
+      secure: true,
+    });
     res.sendStatus(200);
   },
 
   async logout(req, res) {
     req.session.destroy();
+    res.clearCookie("usrid");
     res.sendStatus(200);
   },
 };
