@@ -10,7 +10,7 @@ module.exports = {
       return res.status(404).json({ error: "User not found" });
     }
 
-    if (!user.checkPassword(password)) {
+    if (!(await user.checkPassword(password))) {
       return res.status(404).json({ error: "Incorrect password" });
     }
 
