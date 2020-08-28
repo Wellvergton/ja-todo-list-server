@@ -2,16 +2,20 @@ const User = require("../models/User");
 
 module.exports = {
   async store(req, res) {
-    const { name, email, password } = req.body;
+    const { name, email, password, confirmPassword } = req.body;
     const user = await User.findOne({ where: { email } });
 
     if (user) {
       return res.status(409).json({ error: "User already exists" });
     }
 
+    if (password !== confirmPassword) {
+      return res.status(409).json({ error: "Passwords does not match" });
+    }
+
     const newUser = await User.create({ name, email, password });
 
-    return res.send(newUser);
+    return res.sendStatus(200);
   },
 
   async update(req, res) {
