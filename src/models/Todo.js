@@ -7,6 +7,7 @@ class Todo extends Model {
         title: DataTypes.STRING,
         context: DataTypes.STRING,
         description: DataTypes.STRING,
+        type: DataTypes.STRING,
         date: DataTypes.STRING,
       },
       {
