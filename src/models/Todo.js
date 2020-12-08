@@ -5,6 +5,7 @@ class Todo extends Model {
     super.init(
       {
         title: DataTypes.STRING,
+        context: DataTypes.STRING,
         description: DataTypes.STRING,
         date: DataTypes.STRING,
       },
