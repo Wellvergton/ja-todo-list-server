@@ -13,7 +13,7 @@ module.exports = {
       return res.status(409).json({ error: "Passwords does not match" });
     }
 
-    const newUser = await User.create({ name, email, password });
+    await User.create({ name, email, password });
 
     return res.sendStatus(200);
   },
