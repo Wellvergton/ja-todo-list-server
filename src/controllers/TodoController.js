@@ -23,9 +23,9 @@ module.exports = {
 
   async store(req, res) {
     const user_id = req.session.uid;
-    const { title, description, date } = req.body;
+    const { title, context, type, description, date } = req.body;
 
-    const user = User.findByPk(user_id);
+    const user = await User.findByPk(user_id);
 
     if (!user) {
       return res.sendStatus(404);
@@ -34,7 +34,9 @@ module.exports = {
     const todo = await Todo.create({
       user_id,
       title,
+      context,
       description,
+      type,
       date: JSON.stringify(date),
     });
 
@@ -43,7 +45,7 @@ module.exports = {
 
   async update(req, res) {
     const user_id = req.session.uid;
-    const { id, title, description, date } = req.body;
+    const { id, title, context, description, type, date } = req.body;
 
     const user = User.findByPk(user_id);
 
@@ -52,11 +54,13 @@ module.exports = {
     }
 
     await Todo.update(
-      { title, description, date: JSON.stringify(date) },
+      { title, context, description, type, date: JSON.stringify(date) },
       { where: { id, user_id } }
     );
 
-    return res.send();
+    const updatedTodo = await Todo.findByPk(id);
+
+    return res.json(updatedTodo);
   },
 
   async delete(req, res) {
