@@ -7,7 +7,8 @@ class User extends Model {
     super.init(
       {
         id: {
-          type: DataTypes.STRING,
+          type: DataTypes.UUID,
+          defaultValue: DataTypes.UUIDV4,
           primaryKey: true,
         },
         name: DataTypes.STRING,
@@ -19,8 +20,6 @@ class User extends Model {
         sequelize: connection,
         hooks: {
           beforeSave: async (user) => {
-            user.id = uid.sync(10);
-
             if (user.password) {
               user.password_hash = await bcrypt.hash(user.password, 8);
             }

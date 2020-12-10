@@ -8,7 +8,7 @@ class Session extends Model {
           type: DataTypes.STRING,
           primaryKey: true,
         },
-        user_id: DataTypes.STRING,
+        user_id: DataTypes.UUID,
         expires: DataTypes.DATE,
         data: DataTypes.TEXT,
       },
