@@ -1,9 +1,15 @@
 const { DataTypes, Model } = require("sequelize");
+const uid = require("uid-safe");
 
 class Todo extends Model {
   static init(connection) {
     super.init(
       {
+        id: {
+          type: DataTypes.UUID,
+          defaultValue: DataTypes.UUIDV4,
+          primaryKey: true,
+        },
         title: DataTypes.STRING,
         context: DataTypes.STRING,
         description: DataTypes.STRING,
